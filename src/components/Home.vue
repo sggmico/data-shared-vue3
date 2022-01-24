@@ -1,8 +1,13 @@
 <template>
   <h1>Home Page</h1>
 </template>
-<script setup>
+<script>
 import { ref } from 'vue'
+export default {
+  setup() {
+    
+  }
+}
 
 </script>
 

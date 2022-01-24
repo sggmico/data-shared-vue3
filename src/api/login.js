@@ -1,18 +1,19 @@
 async function sleep(duration = 1000) {
     await new Promise(resolve => {
         setTimeout(() => {
-            resolve
+            resolve()
         },duration)
     })
 }
 
-export async function login(username, password) {
+export async function login(params) {
     await sleep()
+    const { username, password} = params || {}
     const userInfo = {
-        username: 'admin',
+        username: 'sgg',
         password: '123123'
     }
-    if(username === 'admin' && password === '123123') {
+    if(username === 'sgg' && password === '123123') {
         window.localStorage.setItem('user.info', JSON.stringify(userInfo))
         return userInfo
     }
@@ -31,5 +32,11 @@ export async function getUserInfo() {
     if(userInfoStr) {
         return JSON.parse(userInfoStr)
     }
-    return;
+    return null;
+}
+
+export default {
+    login,
+    logout,
+    getUserInfo
 }
