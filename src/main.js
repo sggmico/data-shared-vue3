@@ -4,11 +4,9 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 
 import router from "./router";
-import store from "./store";
+import { getUserInfoAsync } from "./store/useLoginInfo.js";
 
-createApp(App).use(ElementPlus).use(router).use(store).mount("#app");
+createApp(App).use(ElementPlus).use(router).mount("#app");
 
 // 更新用户信息
-store
-  .dispatch("userStore/getUserInfoAsync")
-  .then((data) => console.log("data", data));
+getUserInfoAsync().then((data) => console.log("global data", data));

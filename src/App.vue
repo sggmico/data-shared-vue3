@@ -2,9 +2,9 @@
   <div class="nav-container">
     <router-link class="router-link" to="/">首页 | </router-link>
 
-    <span v-if="loading">loading...</span>
+    <span v-if="loginInfo.loading">loading...</span>
 
-    <template v-else-if="userInfo">
+    <template v-else-if="loginInfo.userInfo">
       <span class="name">{{ "admin" }}</span>
       <el-button @click="logoutHandler">退出</el-button>
     </template>
@@ -17,27 +17,18 @@
   <router-view></router-view>
 </template>
 <script>
-import { computed } from "vue";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { loginInfo, logoutAsync } from "./store/useLoginInfo.js";
 export default {
   setup() {
-    const store = useStore();
     const router = useRouter();
-    const loading = computed(() => {
-      return store.state.userStore.loading;
-    });
-    const userInfo = computed(() => {
-      return store.state.userStore.userInfo;
-    });
     const logoutHandler = async () => {
-      await store.dispatch("userStore/logoutAsync");
+      await logoutAsync();
       router.push("/login");
     };
     return {
       logoutHandler,
-      loading,
-      userInfo,
+      loginInfo,
     };
   },
 };

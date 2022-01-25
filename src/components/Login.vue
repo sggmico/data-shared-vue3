@@ -10,23 +10,27 @@
     </div>
     <div class="form-item">
       <label></label>
-      <el-button type="primary" @click="loginHandler">提交</el-button>
+      <el-button
+        type="primary"
+        @click="loginHandler"
+        :loading="loginInfo.loading"
+        >提交</el-button
+      >
     </div>
   </form>
 </template>
 
 <script>
 import { ref } from "vue";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { loginInfo, loginAsync } from "../store/useLoginInfo.js";
 export default {
   setup() {
-    const store = useStore();
     const router = useRouter();
     const username = ref("");
     const password = ref("");
     const loginHandler = async () => {
-      const userInfo = await store.dispatch("userStore/loginAsync", {
+      const userInfo = await loginAsync({
         username: username.value,
         password: password.value,
       });
@@ -40,6 +44,7 @@ export default {
       username,
       password,
       loginHandler,
+      loginInfo,
     };
   },
 };
