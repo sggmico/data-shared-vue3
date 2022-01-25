@@ -5,7 +5,7 @@
     <span v-if="loginInfo.loading">loading...</span>
 
     <template v-else-if="loginInfo.userInfo">
-      <span class="name">{{ "admin" }}</span>
+      <span class="name">{{ loginInfo.userInfo.username }}</span>
       <el-button @click="logoutHandler">退出</el-button>
     </template>
 
