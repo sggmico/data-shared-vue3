@@ -5,7 +5,7 @@
     <span v-if="loading">loading...</span>
 
     <template v-else-if="userInfo">
-      <span class="name">{{ "admin" }}</span>
+      <span class="name">{{ userInfo.username }}</span>
       <el-button @click="logoutHandler">退出</el-button>
     </template>
 
@@ -22,18 +22,23 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default {
   setup() {
+    // 获取共享数据
     const store = useStore();
     const router = useRouter();
+    // loading
     const loading = computed(() => {
       return store.state.userStore.loading;
     });
+    // 用户信息
     const userInfo = computed(() => {
       return store.state.userStore.userInfo;
     });
+    // 退出登录
     const logoutHandler = async () => {
       await store.dispatch("userStore/logoutAsync");
       router.push("/login");
     };
+
     return {
       logoutHandler,
       loading,

@@ -11,7 +11,6 @@ export default {
       state.loading = isLoading;
     },
     login(state, payload) {
-      console.log("state.userInfo >>> payload", payload);
       state.userInfo = payload;
     },
     logout(state) {
@@ -34,7 +33,6 @@ export default {
       return null;
     },
     async getUserInfoAsync({ commit }) {
-      console.log("aaaaa");
       commit("updateLoading", true);
       const userInfo = await loginApi.getUserInfo();
       commit("login", userInfo);

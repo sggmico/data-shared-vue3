@@ -10,21 +10,25 @@
     </div>
     <div class="form-item">
       <label></label>
-      <el-button type="primary" @click="loginHandler">提交</el-button>
+      <el-button type="primary" @click="loginHandler" :loading="loading"
+        >提交</el-button
+      >
     </div>
   </form>
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default {
   setup() {
+    // 获取共享数据
     const store = useStore();
     const router = useRouter();
     const username = ref("");
     const password = ref("");
+    // 登录
     const loginHandler = async () => {
       const userInfo = await store.dispatch("userStore/loginAsync", {
         username: username.value,
@@ -36,10 +40,15 @@ export default {
         router.push("/");
       }
     };
+    // loading
+    const loading = computed(() => {
+      return store.state.userStore.loading;
+    });
     return {
       username,
       password,
       loginHandler,
+      loading,
     };
   },
 };
