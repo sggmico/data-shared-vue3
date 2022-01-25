@@ -10,9 +10,9 @@ export async function login(params) {
   await sleep();
   const { username, password } = params || {};
   const userInfo = {
-    username: "sgg",
+    username: "admin",
   };
-  if (username === "sgg" && password === "123123") {
+  if (username === "admin" && password === "123123") {
     window.localStorage.setItem("user.info", JSON.stringify(userInfo));
     return userInfo;
   }

@@ -23,12 +23,16 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { loginInfo, loginAsync } from "../store/useLoginInfo.js";
+import { useLoginInfo } from "../store/useLoginInfo.js";
 export default {
   setup() {
     const router = useRouter();
+
     const username = ref("");
     const password = ref("");
+    // 获取共享数据
+    const { state, loginAsync } = useLoginInfo();
+
     const loginHandler = async () => {
       const userInfo = await loginAsync({
         username: username.value,
@@ -40,11 +44,12 @@ export default {
         router.push("/");
       }
     };
+
     return {
       username,
       password,
       loginHandler,
-      loginInfo,
+      loginInfo: state,
     };
   },
 };

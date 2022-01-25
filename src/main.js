@@ -4,9 +4,11 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 
 import router from "./router";
-import { getUserInfoAsync } from "./store/useLoginInfo.js";
+import provideGlobalData from "./store/index.js";
 
-createApp(App).use(ElementPlus).use(router).mount("#app");
+const app = createApp(App).use(ElementPlus).use(router);
+app.provide("name", "hello");
+// 注入共享数据
+provideGlobalData(app);
 
-// 更新用户信息
-getUserInfoAsync().then((data) => console.log("global data", data));
+app.mount("#app");

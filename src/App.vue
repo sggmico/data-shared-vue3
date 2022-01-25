@@ -5,7 +5,7 @@
     <span v-if="loginInfo.loading">loading...</span>
 
     <template v-else-if="loginInfo.userInfo">
-      <span class="name">{{ "admin" }}</span>
+      <span class="name">{{ loginInfo.userInfo.username }}</span>
       <el-button @click="logoutHandler">退出</el-button>
     </template>
 
@@ -17,18 +17,30 @@
   <router-view></router-view>
 </template>
 <script>
+import { inject } from "vue";
 import { useRouter } from "vue-router";
-import { loginInfo, logoutAsync } from "./store/useLoginInfo.js";
+import { useLoginInfo } from "./store/useLoginInfo.js";
 export default {
   setup() {
+    console.log(inject("name"));
     const router = useRouter();
+    // 获取共享数据
+    const { state, logoutAsync, getUserInfoAsync } = useLoginInfo();
+
     const logoutHandler = async () => {
       await logoutAsync();
       router.push("/login");
     };
+
+    getUserInfoAsync().then((data) => {
+      if (data) {
+        router.push("/");
+      }
+    });
+
     return {
       logoutHandler,
-      loginInfo,
+      loginInfo: state,
     };
   },
 };
