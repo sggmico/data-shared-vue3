@@ -33,6 +33,7 @@ export default {
     // 获取共享数据
     const { state, loginAsync } = useLoginInfo();
 
+    // 登录
     const loginHandler = async () => {
       const userInfo = await loginAsync({
         username: username.value,

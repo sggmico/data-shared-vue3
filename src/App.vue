@@ -27,11 +27,13 @@ export default {
     // 获取共享数据
     const { state, logoutAsync, getUserInfoAsync } = useLoginInfo();
 
+    // 退出
     const logoutHandler = async () => {
       await logoutAsync();
       router.push("/login");
     };
 
+    // 获取用户信息
     getUserInfoAsync().then((data) => {
       if (data) {
         router.push("/");
