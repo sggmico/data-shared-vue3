@@ -18,10 +18,12 @@
 </template>
 <script>
 import { useRouter } from "vue-router";
+// 获取共享数据
 import { loginInfo, logoutAsync } from "./store/useLoginInfo.js";
 export default {
   setup() {
     const router = useRouter();
+    // 退出
     const logoutHandler = async () => {
       await logoutAsync();
       router.push("/login");

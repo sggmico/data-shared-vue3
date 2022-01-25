@@ -23,12 +23,14 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+// 获取共享数据
 import { loginInfo, loginAsync } from "../store/useLoginInfo.js";
 export default {
   setup() {
     const router = useRouter();
     const username = ref("");
     const password = ref("");
+    // 登录
     const loginHandler = async () => {
       const userInfo = await loginAsync({
         username: username.value,
